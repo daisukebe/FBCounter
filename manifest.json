@@ -1,0 +1,15 @@
+﻿{
+    "name": "Facebook Share/Like Counter",
+    "version": "0.0.1",
+    "description": "Count the Number of Facebook Share/Like on the Current Page",
+    "browser_action": {
+	"default_icon": "icon.png",
+	"default_title": "Facebook Share/Like Counter"
+    },
+    "permissions":[
+	"tabs", 
+	"https://*/*",
+	"http://*/*"
+    ],
+    "background_page": "background.html"
+}

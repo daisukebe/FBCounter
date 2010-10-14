@@ -1,0 +1,29 @@
+﻿<html>
+<script>
+  chrome.browserAction.onClicked.addListener(function(tab) {
+
+  // Counter, get share/like count on the current page
+  (function(url){
+  var l1 = "https://api.facebook.com/method/links.getStats?urls="
+  var l2 = "&access_token=2227470867|2.7HTp7ewzybIjy7bssZQX2g__.3600.1287032400-1475323696|dO8r8gayWbVXztoUVGoRI879a98&format=json";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", l1 + url + l2, true);
+  xhr.onload = function(){
+  var re = JSON.parse(xhr.responseText);
+  with(re[0]){
+  var s = share_count;
+  var l = like_count;
+  var c = comment_count;
+  var t = total_count;
+  };
+  alert(s + " " + l + " " + c + " " + t);
+  }
+  xhr.send();
+
+  })(tab.url);
+  
+  });
+</script>
+</html>
+
