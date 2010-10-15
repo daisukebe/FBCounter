@@ -18,7 +18,7 @@ var addNum = function(num, tab){
  * Share/Like on the page.
  **/
 chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
-    if(inf.status === "complete"){
+    if( !tab.url.match(/^https:\/\/.*/) && inf.status === "complete"){
         (function(url){
             var l1 = "http://api.facebook.com/restserver.php?method=links.getStats&urls=";
             var l2 = "&format=json";
@@ -44,10 +44,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
  * appear and you can share the page with your friend.
  **/
 chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.windows.create({
-        url: "http://www.facebook.com/sharer.php?u=" +
-	    encodeURIComponent(tab.url) + "&t=" + tab.title,
-        height: 500,
-        width: 600,
-        type: "popup"});
+    if( !tab.url.match(/https:\/\/.*/)){
+	(function(url, title){
+	    chrome.windows.create({
+		url: "http://www.facebook.com/sharer.php?u=" +
+		    encodeURIComponent(url) + "&t=" + title,
+		height: 500,
+		width: 600,
+		type: "popup"});
+	})(tab.url, tab.title);
+    }
 });
