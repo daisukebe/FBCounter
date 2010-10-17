@@ -22,6 +22,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
         (function(url){
             var l1 = "http://api.facebook.com/restserver.php?method=links.getStats&urls=";
             var l2 = "&format=json";
+	    if(url.match(/.*twitter\.com\/#!\/.*/))
+		url = url.replace(/#!\//, "");
 	    
             var xhr = new XMLHttpRequest();
             xhr.open("GET", l1 + encodeURIComponent(url) + l2, true);
@@ -46,6 +48,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
 chrome.browserAction.onClicked.addListener(function(tab) {
     if( !tab.url.match(/https:\/\/.*/)){
 	(function(url, title){
+	    if(url.match(/.*twitter\.com\/#!\/.*/))
+		url = url.replace(/#!\//, "");
 	    chrome.windows.create({
 		url: "http://www.facebook.com/sharer.php?u=" +
 		    encodeURIComponent(url) + "&t=" + title,
