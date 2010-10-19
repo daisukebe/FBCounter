@@ -18,11 +18,11 @@ var addNum = function(num, tab){
  * Share/Like on the page.
  **/
 chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
-    if( inf.status === "complete" && !tab.url.match(/^https:\/\/.*/) ){
+    if( inf.status === "complete"){
         (function(url){
             var l1 = "http://api.facebook.com/restserver.php?method=links.getStats&urls=";
             var l2 = "&format=json";
-	    if(url.indexOf("#!") > 0)
+	    if(url.match(/.*#!.*/))
 		url = url.replace(/#!\//, "");
 	    
             var xhr = new XMLHttpRequest();
@@ -46,16 +46,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
  * appear and you can share the page with your friend.
  **/
 chrome.browserAction.onClicked.addListener(function(tab) {
-    if( !tab.url.match(/^https:\/\/.*/)){
-	(function(url, title){
-	    if(url.indexOf("#!") > 0)
-		url = url.replace(/#!\//, "");
-	    chrome.windows.create({
-		url: "http://www.facebook.com/sharer.php?u=" +
-		    encodeURIComponent(url) + "&t=" + title,
-		height: 500,
-		width: 600,
-		type: "popup"});
-	})(tab.url, tab.title);
-    }
+    (function(url, title){
+	if(url.match(/.*#!.*/))
+	    url = url.replace(/#!\//, "");
+	chrome.windows.create({
+	    url: "http://www.facebook.com/sharer.php?u=" +
+		encodeURIComponent(url) + "&t=" + title,
+	    height: 500,
+	    width: 600,
+	    type: "popup"});
+    })(tab.url, tab.title);
 });
