@@ -22,7 +22,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
         (function(url){
             var l1 = "http://api.facebook.com/restserver.php?method=links.getStats&urls=";
             var l2 = "&format=json";
-	    if(url.match(/.*#!.*/))
+	    if(url.indexOf("#!") > 0)
 		url = url.replace(/#!\//, "");
 	    
             var xhr = new XMLHttpRequest();
@@ -47,7 +47,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, inf, tab) {
  **/
 chrome.browserAction.onClicked.addListener(function(tab) {
     (function(url, title){
-	if(url.match(/.*#!.*/))
+	if(url.indexOf("#!") > 0)
 	    url = url.replace(/#!\//, "");
 	chrome.windows.create({
 	    url: "http://www.facebook.com/sharer.php?u=" +

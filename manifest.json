@@ -1,13 +1,14 @@
 ﻿{
     "name": "Facebook Share Plus",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "description": "Share the current page on Facebook and view the count of being shared",
     "browser_action": {
 	"default_icon": "fbcounter.png",
 	"default_title": "Facebook Share Plus"
     },
     "permissions":[
-	"tabs", 
+	"tabs",
+	"https://*/*",
 	"http://*/*"
     ],
     "background_page": "background.html"
